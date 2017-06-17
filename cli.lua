@@ -1,15 +1,15 @@
-﻿bot = dofile('/home/USERNAME/inline/utils.lua')
-json = dofile('/home/USERNAME/inline/JSON.lua')
+bot = dofile('/home/inline/inline/utils.lua')
+json = dofile('/home/inline/inline/JSON.lua')
 URL = require "socket.url"
 serpent = require("serpent")
 http = require "socket.http"
 https = require "ssl.https"
 redis = require('redis')
 db = redis.connect('127.0.0.1', 6379)
-BASE = '/home/USERNAME/inline/'
-SUDO = 261764158 -- sudo id
-sudo_users = {261764158,Userid}
-BOTS = 249464384 -- bot id
+BASE = '/home/inline/inline/'
+SUDO = 274807882 -- sudo id
+sudo_users = {274807882,Userid}
+BOTS = nil -- bot id
 bot_id = db:get(SUDO..'bot_id')
 db:set(SUDO..'bot_on',"on")
 function vardump(value)
@@ -152,7 +152,7 @@ function kick(msg,chat,user)
     return false
     end
   if priv(chat,user) then
-      bot.sendMessage(msg.chat_id_, msg.id_, 1, '<code>شما نمیتوانید دیگر مدیران را اخراج کنید!</code>', 'html')
+      bot.sendSticker(msg.chat_id_, msg.id_, 0, 1, nil, CAADBAADaAQAAv9ypQIuBw_d45FjUwI)
     else
   bot.changeChatMemberStatus(chat, user, "Kicked")
     end
@@ -163,12 +163,12 @@ function ban(msg,chat,user)
     return false
     end
   if priv(chat,user) then
-      bot.sendMessage(msg.chat_id_, msg.id_, 1, '<code>شما نمیتوانید دیگر مدیران را از گروه مسدود کنید!</code>', 'html')
+      bot.sendSticker(msg.chat_id_, msg.id_, 0, 1, nil, CAADBAADaAQAAv9ypQIuBw_d45FjUwI)
     else
   bot.changeChatMemberStatus(chat, user, "Kicked")
   db:sadd(SUDO..'banned'..chat,user)
-  local t = '<code>>کاربر</code> [<b>'..user..'</b>] <code>از گروه مسدود گردید.</code>'
-  bot.sendMessage(msg.chat_id_, msg.id_, 1, t, 1, 'html')
+  local t = '>کاربر '..user..' از گروه مسدود گردید.'
+  bot.sendDocument(msg.chat_id_, msg.id_, 0, 1, nil, '/ban.gif', t, dl_cb, nil)
   end
   end
 ---------------------------ban all -------------------------------
@@ -177,7 +177,7 @@ function banall(msg,chat,user)
     return false
     end
   if priv(chat,user) then
-      bot.sendMessage(msg.chat_id_, msg.id_, 1, '<code>شما نمیتوانید دیگر مدیران را از گروه مسدود کنید!</code>', 'html')
+      bot.sendSticker(msg.chat_id_, msg.id_, 0, 1, nil, CAADBAADaAQAAv9ypQIuBw_d45FjUwI)
     else
   bot.changeChatMemberStatus(chat, user, "Kicked")
   db:sadd(SUDO..'banalled',user)
@@ -191,7 +191,7 @@ function mute(msg,chat,user)
     return false
     end
   if priv(chat,user) then
-      bot.sendMessage(msg.chat_id_, msg.id_, 1, '<code>شما نمیتوانید توانایی گفتگو در گروه را از دیگر مدیران سلب کنید!</code>', 'html')
+      bot.sendSticker(msg.chat_id_, msg.id_, 0, 1, nil, CAADBAADaAQAAv9ypQIuBw_d45FjUwI)
     else
   db:sadd(SUDO..'mutes'..chat,user)
   local t = '<code>>کاربر</code> [<b>'..user..'</b>] <code>به حالت سکوت کاربران افزوده گردید.</code>'
@@ -1311,7 +1311,7 @@ end
             end
           tdcli_function({
       ID = "GetInlineQueryResults",
-      bot_user_id_ = 386343615,
+      bot_user_id_ = 350508129,
       chat_id_ = msg.chat_id_,
       user_location_ = {
         ID = "Location",
